@@ -42,9 +42,8 @@ pipeline {
         
         stage('Checkout K8S manifest SCM'){
             steps {
-                git credentialsId: 'f87a34a8-0e09-45e7-b9cf-6dc68feac670', 
-                url: 'https://github.com/JOYMIAH/CI-CD-Pipeline-k8s.git',
-                branch: 'main'
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/JOYMIAH/Deployment_ManifestFile.git']])
+                
             }
         }
         
