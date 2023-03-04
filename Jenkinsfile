@@ -10,7 +10,9 @@ pipeline {
         
         stage('Checkout'){
            steps {
-                git branch: 'main', url: 'https://github.com/JOYMIAH/CI-CD-Pipeline-k8s.git'
+                git credentialsId: 'f87a34a8-0e09-45e7-b9cf-6dc68feac670', 
+                url: 'https://github.com/iam-veeramalla/cicd-end-to-end',
+                branch: 'main'
            }
         }
 
@@ -29,8 +31,12 @@ pipeline {
            steps{
                 script{
                     sh '''
+                    echo 'login into dockerhub'
+                    withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) {
+                    docker login -u joymiah1 -p ${dockerhub}
+}
                     echo 'Push to Repo'
-                    docker push joymiah/todo_app:${BUILD_NUMBER}
+                    docker push joymiah1/todo_app:${BUILD_NUMBER}
                     '''
                 }
             }
