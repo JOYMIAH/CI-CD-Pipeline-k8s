@@ -21,7 +21,7 @@ pipeline {
                 script{
                     sh '''
                     echo 'Buid Docker Image'
-                    docker build -t joymiah/todo_app:${BUILD_NUMBER} .
+                    docker build -t joymiah1/todo_app:${BUILD_NUMBER} .
                     '''
                 }
             }
