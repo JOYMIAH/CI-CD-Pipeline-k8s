@@ -10,7 +10,9 @@ pipeline {
         
         stage('Checkout'){
            steps {
-                git branch: 'main', url: 'https://github.com/JOYMIAH/CI-CD-Pipeline-k8s.git'
+                git credentialsId: 'f87a34a8-0e09-45e7-b9cf-6dc68feac670', 
+                url: 'https://github.com/JOYMIAH/CI-CD-Pipeline-k8s.git',
+                branch: 'main'
            }
         }
 
@@ -19,7 +21,7 @@ pipeline {
                 script{
                     sh '''
                     echo 'Buid Docker Image'
-                    docker build -t joymiah1/todo_app:${BUILD_NUMBER} .
+                    docker build -t joymiah/todo_app:${BUILD_NUMBER} .
                     '''
                 }
             }
@@ -40,7 +42,9 @@ pipeline {
         
         stage('Checkout K8S manifest SCM'){
             steps {
-                git branch: 'main', url: 'https://github.com/JOYMIAH/Deployment_ManifestFile.git'
+                git credentialsId: 'f87a34a8-0e09-45e7-b9cf-6dc68feac670', 
+                url: 'https://github.com/JOYMIAH/CI-CD-Pipeline-k8s.git',
+                branch: 'main'
             }
         }
         
@@ -59,4 +63,5 @@ pipeline {
                     }
                 }
             }
-
+        }
+    }
