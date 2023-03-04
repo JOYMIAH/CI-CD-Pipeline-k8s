@@ -32,8 +32,7 @@ pipeline {
                 script{
                     sh '''
                     echo 'login into dockerhub'
-                    withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) {}
-                    docker login -u joymiah1 -p ${dockerhub}
+                    docker login -u joymiah1 -p Joy--4108
                     echo 'Push to Repo'
                     docker push joymiah1/todo_app:${BUILD_NUMBER}
                     '''
