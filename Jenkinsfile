@@ -42,7 +42,7 @@ pipeline {
         
         stage('Checkout K8S manifest SCM'){
             steps {
-                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/JOYMIAH/Deployment_ManifestFile.git']])
+               git branch: 'main', url: 'https://github.com/JOYMIAH/Deployment_ManifestFile.git'
                 
             }
         }
