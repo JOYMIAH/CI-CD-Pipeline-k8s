@@ -3,7 +3,11 @@ pipeline {
     agent any 
     
     environment {
+        DOCKERHUB_USERNAME = "joymiah1"
         IMAGE_TAG = "${BUILD_NUMBER}"
+        APP_NAME= "todo_app"
+        IMAGE_NAME= "${DOCKERHUB_USERNAME}" + "/" + "${APP_NAME}"
+
     }
     
     stages {
@@ -48,11 +52,9 @@ pipeline {
                 script{
                     git branch: 'main', credentialsId: 'githubtoken1', url: 'https://github.com/JOYMIAH/Deployment_ManifestFile.git' 
                         sh '''
-                        pwd
-                        ls -lrt
-                        chmod 777 deploy.yaml
-                        cat deploy.yaml 
-                        sed -i '' "s/30/${BUILD_NUMBER}/g" deploy.yaml
+                        cat deploy.yaml
+                        sed -i 's/${APP_NAME}.*/${APP_NAME}:${IMAGE_TAG}/g' deploy.yaml
+                        cat deploy.yaml
                         git add deploy.yaml
                         git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
                         git remote -v
