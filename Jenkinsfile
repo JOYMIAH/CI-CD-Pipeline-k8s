@@ -46,7 +46,7 @@ pipeline {
         stage('Update K8S manifest & push to Repo'){
             steps {
                 script{
-                    git branch: 'main', url: 'https://github.com/JOYMIAH/Deployment_ManifestFile.git' 
+                    git branch: 'main', credentialsId: 'githubtoken1', url: 'https://github.com/JOYMIAH/Deployment_ManifestFile.git' 
                         sh '''
                         pwd
                         ls -lrt
