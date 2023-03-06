@@ -51,6 +51,7 @@ pipeline {
                         cat deploy.yaml
                         sudo sed -i '' "s/30/${BUILD_NUMBER}/g" deploy.yaml
                         cat deploy.yaml
+                        chmod 777 deploy.yaml
                         git add deploy.yaml
                         git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
                         git remote -v
