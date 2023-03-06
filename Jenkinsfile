@@ -41,25 +41,20 @@ pipeline {
             }
         }
         
-        stage('Checkout K8S manifest SCM'){
-            steps {
-                git branch: 'main', url: 'https://github.com/JOYMIAH/Deployment_ManifestFile.git'
-            }
-        }
         
         stage('Update K8S manifest & push to Repo'){
             steps {
                 script{
-                    git branch: 'main', credentialsId: 'githubtoken1', url: 'https://github.com/JOYMIAH/Deployment_ManifestFile.git' 
+                    git branch: 'main', url: 'https://github.com/JOYMIAH/CI-CD-Pipeline-k8s.git'
                         sh '''
                         ls -lrt
                         cat deploy.yaml
-                        sed -i 's/${IMAGE_NAME}.*/${IMAGE_NAME}:${IMAGE_TAG}/g' deploy.yaml
-                        cat deploy.yaml
-                        git add deploy.yaml
+                        sed -i 's/${IMAGE_NAME}.*/${IMAGE_NAME}:${IMAGE_TAG}/g' deploy.yml
+                        cat deploy.yml
+                        git add deploy.yml
                         git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
                         git remote -v
-                        git push https://github.com/JOYMIAH/Deployment_ManifestFile.git HEAD:main
+                        git push https://github.com/JOYMIAH/CI-CD-Pipeline-k8s.git HEAD:main
                         '''                        
                     }
                 }
