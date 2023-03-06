@@ -54,7 +54,7 @@ pipeline {
                         sh '''
                         ls -lrt
                         cat deploy.yaml
-                        sed -i 's/${APP_NAME}.*/${APP_NAME}:${IMAGE_TAG}/g' deploy.yaml
+                        sed -i 's/${IMAGE_NAME}.*/${IMAGE_NAME}:${IMAGE_TAG}/g' deploy.yaml
                         cat deploy.yaml
                         git add deploy.yaml
                         git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
