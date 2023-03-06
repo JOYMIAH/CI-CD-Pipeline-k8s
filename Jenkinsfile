@@ -23,7 +23,7 @@ pipeline {
                 script{
                     sh '''
                     echo 'Buid Docker Image'
-                    docker build -t joymiah1/todo_app:${BUILD_NUMBER} .
+                    docker build -t ${IMAGE_NAME}:${BUILD_NUMBER} .
                     '''
                 }
             }
@@ -35,7 +35,7 @@ pipeline {
                     sh '''
                     docker login -u joymiah1 -p Joy--4108
                     echo 'Push to Dockerhub Repositiory'
-                    docker push joymiah1/todo_app:${BUILD_NUMBER}
+                    docker push ${IMAGE_NAME}:${BUILD_NUMBER}
                     '''
                 }
             }
@@ -53,7 +53,7 @@ pipeline {
                     git branch: 'main', credentialsId: 'githubtoken1', url: 'https://github.com/JOYMIAH/Deployment_ManifestFile.git' 
                         sh '''
                         cat deploy.yaml
-                        sed -i 's/${APP_NAME}.*/${APP_NAME}:${IMAGE_TAG}/g' deploy.yaml
+                        sed -i 's/${APP_NAME} .*/${APP_NAME}:${IMAGE_TAG}/g' deploy.yaml
                         cat deploy.yaml
                         git add deploy.yaml
                         git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
