@@ -10,9 +10,7 @@ pipeline {
         
         stage('Checkout'){
            steps {
-                git credentialsId: 'f87a34a8-0e09-45e7-b9cf-6dc68feac670', 
-                url: 'https://github.com/JOYMIAH/CI-CD-Pipeline-k8s.git',
-                branch: 'main'
+                git branch: 'main', url: 'https://github.com/JOYMIAH/CI-CD-Pipeline-k8s.git'
            }
         }
 
@@ -31,9 +29,8 @@ pipeline {
            steps{
                 script{
                     sh '''
-                    echo 'login into dockerhub'
                     docker login -u joymiah1 -p Joy--4108
-                    echo 'Push to Repo'
+                    echo 'Push to Dockerhub Repositiory'
                     docker push joymiah1/todo_app:${BUILD_NUMBER}
                     '''
                 }
@@ -42,14 +39,14 @@ pipeline {
         
         stage('Checkout K8S manifest SCM'){
             steps {
-               git branch: 'main', url: 'https://github.com/JOYMIAH/Deployment_ManifestFile.git'
-                
+                git branch: 'main', url: 'https://github.com/JOYMIAH/Deployment_ManifestFile.git'
             }
         }
         
         stage('Update K8S manifest & push to Repo'){
             steps {
                 script{
+                    git branch: 'main', url: 'https://github.com/JOYMIAH/Deployment_ManifestFile.git' 
                         sh '''
                         cat deploy.yaml
                         sed -i '' "s/32/${BUILD_NUMBER}/g" deploy.yaml
