@@ -48,7 +48,7 @@ pipeline {
                     git branch: 'main', url: 'https://github.com/JOYMIAH/CI-CD-Pipeline-k8s.git'
                         sh '''
                         ls -lrt
-                        cat deploy.yaml
+                        cat deploy.yml
                         sed -i 's/${IMAGE_NAME}.*/${IMAGE_NAME}:${IMAGE_TAG}/g' deploy.yml
                         cat deploy.yml
                         git add deploy.yml
