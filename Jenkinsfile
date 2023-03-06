@@ -48,7 +48,8 @@ pipeline {
                 script{
                     git branch: 'main', url: 'https://github.com/JOYMIAH/Deployment_ManifestFile.git' 
                         sh '''
-                        cat deploy.yaml
+                        ls -lrt
+                        cat deploy.yaml 
                         sudo sed -i '' "s/30/${BUILD_NUMBER}/g" deploy.yaml
                         cat deploy.yaml
                         chmod 777 deploy.yaml
