@@ -47,11 +47,11 @@ pipeline {
                 script{
                         sh '''
                         cat deploy.yaml
-                        echo "Hello you!" >> deploy.yaml
                         sed "s/${IMAGE_TAG}/${BUILD_NUMBER}/g" deploy.yaml
                         git add .
                         ls -lrt
                         git commit -m "Tamjid Ahsan kader"
+                        git branch: 'main', credentialsId: 'GitHubCredentials', url: 'https://github.com/JOYMIAH/deployment.git'
                         git push https://github.com/JOYMIAH/deployment.git HEAD:main
                         '''                        
                     }
