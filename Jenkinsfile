@@ -47,6 +47,7 @@ pipeline {
                 script{
                         sh '''
                         cat deploy.yaml
+                        echo "Hello you!" >> deploy.yaml
                         sed "s/32/${BUILD_NUMBER}/g" deploy.yaml
                         git add .
                         ls -lrt
