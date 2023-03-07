@@ -10,7 +10,7 @@ pipeline {
         
         stage('Checkout'){
            steps {
-                git branch: 'main', credentialsId: 'githubtoken1', url: 'https://github.com/JOYMIAH/CI-CD-Pipeline-k8s.git'
+                git branch: 'main', credentialsId: 'GitHubCredentials', url: 'https://github.com/JOYMIAH/CI-CD-Pipeline-k8s.git'
            }
         }
 
@@ -38,7 +38,7 @@ pipeline {
         
         stage('Checkout K8S manifest SCM'){
             steps {
-                git branch: 'main', credentialsId: 'github', url: 'https://github.com/JOYMIAH/deployment.git'
+                git branch: 'main', credentialsId: 'GitHubCredentials', url: 'https://github.com/JOYMIAH/deployment.git'
             }
         }
         
