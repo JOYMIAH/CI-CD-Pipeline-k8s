@@ -10,7 +10,7 @@ pipeline {
         
         stage('Checkout'){
            steps {
-		git branch: 'main', credentialsId: 'githubtoken1', url: 'https://github.com/JOYMIAH/CI-CD-Pipeline-k8s.git'
+				git branch: 'main', credentialsId: 'githubtoken1', url: 'https://github.com/JOYMIAH/CI-CD-Pipeline-k8s.git'
            }
         }
 
@@ -18,7 +18,7 @@ pipeline {
             steps{
                 script{
                     sh '''
-		    echo 'Buid Docker Image'
+					echo 'Buid Docker Image'
                     docker build -t joymiah1/todo_app:${BUILD_NUMBER} .
                     '''
                 }
@@ -40,7 +40,7 @@ pipeline {
         
         stage('Checkout K8S manifest SCM'){
             steps {
-		git branch: 'main', credentialsId: 'githubtoken1', url: 'https://github.com/JOYMIAH/Deployment_ManifestFile.git'
+				git branch: 'main', credentialsId: 'githubtoken1', url: 'https://github.com/JOYMIAH/Deployment_ManifestFile.git'
             }
         }
         
@@ -48,14 +48,14 @@ pipeline {
             steps {
                 script{
                         sh '''
-			ls -lrt
-			pwd
+						ls -lrt
+						pwd
                         cat deploy.yaml
                         sed "s/IMAGE_TAG/${BUILD_NUMBER}/g" deploy.yaml
                         cat deploy.yaml
+						git remote add test https://github.com/JOYMIAH/Deployment_ManifestFile.git
                         git add deploy.yaml
                         git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
-                        git remote add test https://github.com/JOYMIAH/Deployment_ManifestFile.git
                         git push --force test  main
                         '''                        
                     }
