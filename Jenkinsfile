@@ -49,7 +49,7 @@ pipeline {
                         cat deploy.yaml
                         sed "s/32/${BUILD_NUMBER}/g" deploy.yaml
                         git init
-                        git add deploy.yaml
+                        git add .
                         ls -lrt
                         git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
                         git push https://github.com/JOYMIAH/deployment.git HEAD:main
