@@ -51,7 +51,7 @@ pipeline {
                         git init
                         git add .
                         ls -lrt
-                        git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
+                        git commit -m "Tamjid Ahsan kader"
                         git push https://github.com/JOYMIAH/deployment.git HEAD:main
                         '''                        
                     }
