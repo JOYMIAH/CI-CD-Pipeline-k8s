@@ -10,7 +10,7 @@ pipeline {
         
         stage('Checkout'){
            steps {
-		 git branch: 'main', credentialsId: 'githubtoken1', url: 'https://github.com/JOYMIAH/CI-CD-Pipeline-k8s.git'
+                git branch: 'main', credentialsId: 'githubtoken1', url: 'https://github.com/JOYMIAH/CI-CD-Pipeline-k8s.git'
            }
         }
 
@@ -18,8 +18,8 @@ pipeline {
             steps{
                 script{
                     sh '''
-		    echo 'Buid Docker Image'
-                    docker build -t joymiah1/todo_app:${BUILD_NUMBER} .
+                    echo 'Buid Docker Image'
+                    docker build -t abhishekf5/cicd-e2e:${BUILD_NUMBER} .
                     '''
                 }
             }
@@ -29,10 +29,8 @@ pipeline {
            steps{
                 script{
                     sh '''
-                    echo 'login into dockerhub'
-                    docker login -u joymiah1 -p Joy--4108
-                    echo 'Push to the dockerhub'
-                    docker push joymiah1/todo_app:${BUILD_NUMBER}
+                    echo 'Push to Repo'
+                    docker push abhishekf5/cicd-e2e:${BUILD_NUMBER}
                     '''
                 }
             }
@@ -40,28 +38,25 @@ pipeline {
         
         stage('Checkout K8S manifest SCM'){
             steps {
-		   git branch: 'main', credentialsId: 'githubtoken1', url: 'https://github.com/JOYMIAH/Deployment_ManifestFile.git'
+                git branch: 'main', credentialsId: 'github', url: 'https://github.com/JOYMIAH/deployment.git'
             }
         }
         
         stage('Update K8S manifest & push to Repo'){
             steps {
                 script{
+                    git branch: 'main', credentialsId: 'github', url: 'https://github.com/JOYMIAH/deployment.git'
                         sh '''
-			ls -lrt
-			pwd
                         cat deploy.yaml
-                        sed -i "s/${BUILD_NUMBER}/${BUILD_NUMBER}/g" deploy.yaml
+                        sed -i '' "s/32/${BUILD_NUMBER}/g" deploy.yaml
                         cat deploy.yaml
-			git config --global user.email "shaharianazimjoy@gmail.com"
-			git config --global user.name "JOYMIAH"
-                        git add .
+                        git add deploy.yaml
                         git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
-			cat deploy.yaml
-                        git push --force https://github.com/JOYMIAH/Deployment_ManifestFile.git HEAD:main
+                        git remote -v
+                        git push https://github.com/JOYMIAH/deployment.git HEAD:main
                         '''                        
                     }
                 }
             }
         }
-    } 
+    }
