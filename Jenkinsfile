@@ -50,10 +50,11 @@ pipeline {
                         cat deploy.yaml
                         echo "Hello you!" >> deploy.yaml
                         sed "s/${IMAGE_TAG}/${BUILD_NUMBER}/g" deploy.yaml
+                        git init
                         git add .
                         ls -lrt
                         git commit -m "Test"
-                        git push https://github.com/JOYMIAH/deployment.git HEAD:main
+                        git push https://github.com/JOYMIAH/deployment.git
                         '''                        
                     }
                 }
