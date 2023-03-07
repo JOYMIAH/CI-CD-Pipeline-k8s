@@ -47,6 +47,7 @@ pipeline {
                 script{
                         sh '''
                         cat deploy.yaml
+                        echo "Hello you!" >> deploy.yaml
                         sed "s/${IMAGE_TAG}/${BUILD_NUMBER}/g" deploy.yaml
                         git add .
                         ls -lrt
