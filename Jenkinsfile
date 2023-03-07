@@ -48,7 +48,7 @@ pipeline {
                         sh '''
                         cat deploy.yaml
                         echo "Hello you!" >> deploy.yaml
-                        sed "s/32/${BUILD_NUMBER}/g" deploy.yaml
+                        sed "s/${IMAGE_TAG}/${BUILD_NUMBER}/g" deploy.yaml
                         git add .
                         ls -lrt
                         git commit -m "Tamjid Ahsan kader"
