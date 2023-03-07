@@ -45,14 +45,14 @@ pipeline {
         stage('Update K8S manifest & push to Repo'){
             steps {
                 script{
+                     git branch: 'main', credentialsId: 'GitHubCredentials', url: 'https://github.com/JOYMIAH/deployment.git'
                         sh '''
                         cat deploy.yaml
                         echo "Hello you!" >> deploy.yaml
                         sed "s/${IMAGE_TAG}/${BUILD_NUMBER}/g" deploy.yaml
                         git add .
                         ls -lrt
-                        git commit -m "Tamjid Ahsan kader"
-                        git branch: 'main', credentialsId: 'GitHubCredentials', url: 'https://github.com/JOYMIAH/deployment.git'
+                        git commit -m "Test"
                         git push https://github.com/JOYMIAH/deployment.git HEAD:main
                         '''                        
                     }
