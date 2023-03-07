@@ -48,7 +48,6 @@ pipeline {
                         sh '''
                         cat deploy.yaml
                         sed "s/32/${BUILD_NUMBER}/g" deploy.yaml
-                        git init
                         git add .
                         ls -lrt
                         git commit -m "Tamjid Ahsan kader"
