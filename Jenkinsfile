@@ -49,7 +49,7 @@ pipeline {
                         sh '''
                         cat deploy.yaml
                         ls -lrt
-                        sed -i 's|joymiah1/todo_app:.*|${dockerTag}|g' deployment.yaml
+                        sed -i 's|joymiah1/todo_app:.*|${dockerTag}|g' deploy.yaml
                         git init
                         git add .
                         ls -lrt
