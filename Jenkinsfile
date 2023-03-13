@@ -48,6 +48,7 @@ pipeline {
                      git branch: 'main', credentialsId: 'GitHubCredentials', url: 'https://github.com/JOYMIAH/deployment.git'
                         sh '''
                         cat deploy.yaml
+                        ls -lrt
                         sed -i 's|joymiah1/todo_app:.*|${dockerTag}|g' deployment.yaml
                         git init
                         git add .
