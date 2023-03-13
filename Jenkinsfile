@@ -45,7 +45,7 @@ pipeline {
         stage('Update K8S manifest & push to Repo'){
             steps {
                 script{
-                     git branch: 'main', credentialsId: 'GitHubCredentials', url: 'https://github.com/JOYMIAH/deployment.git'
+                     git branch: 'main', credentialsId: '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', url: 'https://github.com/JOYMIAH/deployment.git'
                         sh '''
                         cat deploy.yaml
                         ls -lrt
