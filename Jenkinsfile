@@ -10,7 +10,8 @@ pipeline {
         
         stage('Checkout'){
            steps {
-                git branch: 'main', credentialsId: 'GitHubCredentials', url: 'https://github.com/JOYMIAH/CI-CD-Pipeline-k8s.git'
+                git branch: 'main', credentialsId: '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', url: 'https://github.com/JOYMIAH/CI-CD-Pipeline-k8s.git'
+               
            }
         }
 
