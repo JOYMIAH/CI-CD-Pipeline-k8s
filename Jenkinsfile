@@ -3,7 +3,7 @@ pipeline {
     agent any 
     
     environment {
-        IMAGE_TAG = "${BUILD_NUMBER}"
+        dockerTag = "joymiah1/todo_app:${env.BUILD_NUMBER}"
     }
     
     stages {
@@ -48,8 +48,7 @@ pipeline {
                      git branch: 'main', credentialsId: 'GitHubCredentials', url: 'https://github.com/JOYMIAH/deployment.git'
                         sh '''
                         cat deploy.yaml
-                        echo "Hello you!" >> deploy.yaml
-                        sed "s/${IMAGE_TAG}/${BUILD_NUMBER}/g" deploy.yaml
+                        sed -i 's|joymiah1/todo_app:.*|${dockerTag}|g' deployment.yaml
                         git init
                         git add .
                         ls -lrt
