@@ -10,7 +10,7 @@ pipeline {
         
         stage('Checkout'){
            steps {
-				git branch: 'main', url: 'https://github.com/JOYMIAH/CI-CD-Pipeline-k8s.git'
+		git branch: 'main', url: 'https://github.com/JOYMIAH/CI-CD-Pipeline-k8s.git'
            }
         }
 
@@ -18,7 +18,7 @@ pipeline {
             steps{
                 script{
                     sh '''
-					echo 'Buid Docker Image'
+		    echo 'Buid Docker Image'
                     docker build -t joymiah1/todo_app:${BUILD_NUMBER} .
                     '''
                 }
@@ -47,7 +47,7 @@ pipeline {
                         cat deploy.yml
 			git config --global user.email "shaharianazimjoy@gmail.com"
 			git config --global user.name "JOYMIAH"
-			git remote add test https://github.com/JOYMIAH/Deployment_ManifestFile.git
+			git remote add test2 https://github.com/JOYMIAH/Deployment_ManifestFile.git
                         git add deploy.yaml
                         git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
                         git push --force test  main
