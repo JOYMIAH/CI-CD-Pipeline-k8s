@@ -3,15 +3,14 @@ pipeline {
     agent any 
     
     environment {
-        dockerTag = "joymiah1/todo_app:${env.BUILD_NUMBER}"
+        IMAGE_TAG = "${BUILD_NUMBER}"
     }
     
     stages {
         
         stage('Checkout'){
            steps {
-                git branch: 'main', credentialsId: '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', url: 'https://github.com/JOYMIAH/CI-CD-Pipeline-k8s.git'
-               
+				git branch: 'main', url: 'https://github.com/JOYMIAH/CI-CD-Pipeline-k8s.git'
            }
         }
 
@@ -19,7 +18,7 @@ pipeline {
             steps{
                 script{
                     sh '''
-                    echo 'Buid Docker Image'
+					echo 'Buid Docker Image'
                     docker build -t joymiah1/todo_app:${BUILD_NUMBER} .
                     '''
                 }
@@ -30,34 +29,28 @@ pipeline {
            steps{
                 script{
                     sh '''
-                    echo 'Push to Repo'
+                    echo 'Push to the dockerhub'
                     docker push joymiah1/todo_app:${BUILD_NUMBER}
                     '''
                 }
             }
         }
         
-        stage('Checkout K8S manifest SCM'){
-            steps {
-                git branch: 'main', credentialsId: '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', url: 'https://github.com/JOYMIAH/deployment.git'
-            }
-        }
-        
         stage('Update K8S manifest & push to Repo'){
             steps {
                 script{
-                     git branch: 'main', credentialsId: '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', url: 'https://github.com/JOYMIAH/deployment.git'
                         sh '''
-                        cat deploy.yaml
-                        ls -lrt
-                        sed -i 's|joymiah1/todo_app:.*|${dockerTag}|g' deploy.yaml
-                        pwd
-                        cat deploy.yaml
-                        git init
-                        git add .
-                        ls -lrt
-                        git commit -m "Test"
-                        git push https://github.com/JOYMIAH/deployment.git
+						ls -lrt
+						pwd
+                        cat deploy.yml
+                        sed "s/55/${BUILD_NUMBER}/g" deploy.yml
+                        cat deploy.yml
+						git config --global user.email "shaharianazimjoy@gmail.com"
+						git config --global user.name "JOYMIAH"
+						git remote add test https://github.com/JOYMIAH/Deployment_ManifestFile.git
+                        git add deploy.yaml
+                        git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
+                        git push --force test  main
                         '''                        
                     }
                 }
