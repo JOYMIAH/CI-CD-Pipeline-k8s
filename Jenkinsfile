@@ -47,7 +47,7 @@ pipeline {
                         cat deploy.yml
 			git config --global user.email "shaharianazimjoy@gmail.com"
 			git config --global user.name "JOYMIAH"
-			git remote add test2 https://github.com/JOYMIAH/Deployment_ManifestFile.git
+			git remote add joy1 https://github.com/JOYMIAH/Deployment_ManifestFile.git
                         git add deploy.yaml
                         git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
                         git push --force test  main
