@@ -42,13 +42,14 @@ pipeline {
                         sh '''
 			ls -lrt
 			pwd
+			echo "hello" >> joy.txt
                         cat deploy.yml
                         sed "s/55/${BUILD_NUMBER}/g" deploy.yml
                         cat deploy.yml
 			git config --global user.email "shaharianazimjoy@gmail.com"
 			git config --global user.name "JOYMIAH"
 			git remote add joy2 https://github.com/JOYMIAH/Deployment_ManifestFile.git
-                        git add deploy.yml
+                        git add .
                         git commit -m 'Updated the deploy yml | Jenkins Pipeline'
                         git push --force test  main
                         '''                        
