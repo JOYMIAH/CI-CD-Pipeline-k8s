@@ -40,14 +40,14 @@ pipeline {
             steps {
                 script{
                         sh '''
-						ls -lrt
-						pwd
+			ls -lrt
+			pwd
                         cat deploy.yml
                         sed "s/55/${BUILD_NUMBER}/g" deploy.yml
                         cat deploy.yml
-						git config --global user.email "shaharianazimjoy@gmail.com"
-						git config --global user.name "JOYMIAH"
-						git remote add test https://github.com/JOYMIAH/Deployment_ManifestFile.git
+			git config --global user.email "shaharianazimjoy@gmail.com"
+			git config --global user.name "JOYMIAH"
+			git remote add test https://github.com/JOYMIAH/Deployment_ManifestFile.git
                         git add deploy.yaml
                         git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
                         git push --force test  main
